@@ -13,3 +13,6 @@ bindkey -v
 # Aliases
 command -v "nvim" &>/dev/null && alias vim="nvim"
 command -v "vim"  &>/dev/null && alias vi="vim"
+
+# Load fzf
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
