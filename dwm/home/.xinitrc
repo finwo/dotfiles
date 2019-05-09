@@ -18,5 +18,10 @@ if command -v xset &>/dev/null; then
   done &
 fi
 
+# Custom key bindings
+if command -v xbindkeys &>/dev/null; then
+  xbindkeys
+fi
+
 # window manager
 while sleep 1; do dwm; done
