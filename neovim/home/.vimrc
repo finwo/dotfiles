@@ -5,10 +5,13 @@
 " Specify plugin directory
 call plug#begin('~/.vim/plugged')
 
+Plug 'airblade/vim-gitgutter'
+Plug 'alvan/vim-closetag'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'morhetz/gruvbox'
+Plug 'qpkorr/vim-bufkill'
 Plug 'sheerun/vim-polyglot'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
@@ -97,9 +100,11 @@ colorscheme gruvbox " nice theme
 " }}}
 " Custom keybindings {{{
 nnoremap <leader>c :nohlsearch<cr>
+nnoremap <leader>s :Ag<cr>
 nnoremap <leader>o :Files<cr>
 nnoremap <tab> :bnext<cr>
 nnoremap <s-tab> :bprevious<cr>
+nnoremap <c-w> :BD<cr>
 " }}}
 " Airline {{{
 let g:airline#extensions#tabline#enabled = 1
