@@ -12,6 +12,7 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'morhetz/gruvbox'
 Plug 'qpkorr/vim-bufkill'
+Plug 'scrooloose/nerdtree'
 Plug 'sheerun/vim-polyglot'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
@@ -105,6 +106,7 @@ nnoremap <leader>o :Files<cr>
 nnoremap <tab> :bnext<cr>
 nnoremap <s-tab> :bprevious<cr>
 nnoremap <c-w> :BD<cr>
+nnoremap <c-n> :NERDTreeToggle<cr>
 " }}}
 " Airline {{{
 let g:airline#extensions#tabline#enabled = 1
@@ -120,4 +122,11 @@ let g:fzf_commits_log_options = '--graph --color=always --format="%C(auto)%h%d %
 let g:fzf_tags_command = 'ctags -R'
 let g:fzf_commands_expext = 'alt-enter,ctrl-x'
 nnoremap <silent> <leader><enter> :Buffers<cr>
+" }}}
+" NERDTree {{{
+
+" Highlighting of nerd dev icons and filenames in nerd tree
+let g:NERDTreeFileExtensionsHighlightFullName = 1
+let g:NERDTreeExactMatchHighlightFullName = 1
+let g:NERDTreePatternMatchHighlightFullName = 1
 " }}}
