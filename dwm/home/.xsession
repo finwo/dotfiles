@@ -1,2 +1,2 @@
 #!/bin/sh
-/bin/sh -l ~/.xinitrc
+exec /bin/sh -l ~/.xinitrc
