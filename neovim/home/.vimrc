@@ -19,6 +19,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-eunuch'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+Plug 'w0rp/ale'
 
 " Initialize plugin system
 call plug#end()
@@ -129,4 +130,31 @@ nnoremap <silent> <leader><enter> :Buffers<cr>
 let g:NERDTreeFileExtensionsHighlightFullName = 1
 let g:NERDTreeExactMatchHighlightFullName = 1
 let g:NERDTreePatternMatchHighlightFullName = 1
+" }}}
+" ALE {{{
+
+" Don't restrict JSX syntax highlighting to .jsx files
+let g:jsx_ext_required = 0
+
+" Enable completion where available
+let g:ale_sign_error = '✘'
+let g:ale_sign_warning = '•'
+let g:ale_sign_column_always = 1
+
+" What programs handle what
+let g:ale_fixers = {}
+let g:ale_fixers['javascript'] = ['eslint', 'prettier']
+let g:ale_fixers['css'] = ['prettier']
+let g:ale_fixers['vue'] = ['prettier']
+let g:ale_fixers['scss'] = ['stylelint', 'prettier']
+
+" Automagically fix
+let g:ale_open_list= 0
+let g:ale_fix_on_save = 1
+
+" Don't run every keystroke
+let g:ale_lint_on_insert_leave = 1
+let g:ale_lint_on_text_changed = 'never'
+let g:ale_lint_on_enter = 0
+
 " }}}
