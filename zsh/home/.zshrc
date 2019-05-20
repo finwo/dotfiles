@@ -14,6 +14,25 @@ bindkey -v
 [[ -n "${key[PageDown]}" ]] && bindkey "${key[PageDown]}" history-beginning-search-forward
 
 # }}}
+# Custom commands {{{
+
+function getComposer {
+  php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+  php composer-setup.php
+  php -r "unlink('composer-setup.php');"
+}
+
+function composer {
+  for i in $(echo {,~/bin/,/usr/bin/,/usr/local/bin/}composer{.phar,}); do
+    [ -f "$i" ] || continue
+    php "$i" "$@"
+    return $?
+  done
+  echo "Composer is not installed on this system"
+  return 1
+}
+
+# }}}
 # Aliases {{{
 
 # VI
