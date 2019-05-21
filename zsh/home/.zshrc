@@ -103,6 +103,12 @@ prompt="%(?..[%{$fg[red]%}%?%{$reset_color%}] )%{$fg[yellow]%}%n%{$reset_color%}
 PROMPT_COMMAND=
 
 # }}}
+# Titles {{{
+
+[[ -e ~/git/finwo/zsh-titles/titles.plugin.zsh ]] && source ~/git/finwo/zsh-titles/titles.plugin.zsh
+[[ -e ~/src/finwo/zsh-titles/titles.plugin.zsh ]] && source ~/src/finwo/zsh-titles/titles.plugin.zsh
+
+# }}}
 
 # Load fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
