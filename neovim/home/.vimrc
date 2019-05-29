@@ -9,6 +9,7 @@ Plug 'airblade/vim-gitgutter'
 Plug 'alvan/vim-closetag'
 Plug 'carlitux/deoplete-ternjs'
 Plug 'editorconfig/editorconfig-vim'
+Plug 'itchyny/calendar.vim'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'morhetz/gruvbox'
@@ -272,4 +273,8 @@ let g:deoplete#sources#ternjs#filetypes = [
                 \ '...'
                 \ ]
 
+" }}}
+" Calendar {{{
+let g:calendar_google_calendar = 1
+let g:calendar_first_day       = "Monday"
 " }}}
