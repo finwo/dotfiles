@@ -15,6 +15,7 @@ Plug 'junegunn/fzf.vim'
 Plug 'morhetz/gruvbox'
 Plug 'padawan-php/deoplete-padawan', { 'do': 'composer install' }
 Plug 'qpkorr/vim-bufkill'
+Plug 'ryym/vim-riot'
 Plug 'scrooloose/nerdtree'
 Plug 'sheerun/vim-polyglot'
 Plug 'ternjs/tern_for_vim', { 'do': 'npm install' }
