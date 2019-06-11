@@ -1,0 +1,5 @@
+[user]
+  email = finwo@pm.me
+  name = Robin Bron
+[push]
+  followTags = true
