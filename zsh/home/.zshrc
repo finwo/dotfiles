@@ -109,6 +109,13 @@ PROMPT_COMMAND=
 [[ -e ~/src/finwo/zsh-titles/titles.plugin.zsh ]] && source ~/src/finwo/zsh-titles/titles.plugin.zsh
 
 # }}}
+# Emscripten {{{
 
-# Load fzf
+[ -f "${HOME}/.emscripten" ] && \
+  [ -f "${HOME}/src/emscripten/emsdk/emsdk_env.sh" ] && \
+  source "${HOME}/src/emscripten/emsdk/emsdk_env.sh"
+
+# }}}
+# FuzzyFinder {{{
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+# }}}
