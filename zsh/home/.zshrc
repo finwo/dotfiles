@@ -113,7 +113,7 @@ PROMPT_COMMAND=
 
 [ -f "${HOME}/.emscripten" ] && \
   [ -f "${HOME}/src/emscripten/emsdk/emsdk_env.sh" ] && \
-  source "${HOME}/src/emscripten/emsdk/emsdk_env.sh"
+  source "${HOME}/src/emscripten/emsdk/emsdk_env.sh" &>/dev/null
 
 # }}}
 # FuzzyFinder {{{
