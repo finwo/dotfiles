@@ -12,6 +12,7 @@ Plug 'editorconfig/editorconfig-vim'
 Plug 'itchyny/calendar.vim'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
+Plug 'junegunn/vim-easy-align'
 Plug 'morhetz/gruvbox'
 Plug 'padawan-php/deoplete-padawan', { 'do': 'composer install' }
 Plug 'qpkorr/vim-bufkill'
@@ -278,4 +279,13 @@ let g:deoplete#sources#ternjs#filetypes = [
 " Calendar {{{
 let g:calendar_google_calendar = 1
 let g:calendar_first_day       = "Monday"
+" }}}
+" EasyAlign {{{
+
+" Start interactive EasyAlign in visual mode (e.g. vipga)
+xmap ga <Plug>(EasyAlign)
+
+" Start interactive EasyAlgin for a motion/text object (e.g. gaip)
+nmap ga <Plug>(EasyAlign)
+
 " }}}
