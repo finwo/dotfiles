@@ -105,7 +105,6 @@ PROMPT_COMMAND=
 # }}}
 # Titles {{{
 
-[[ -e ~/git/finwo/zsh-titles/titles.plugin.zsh ]] && source ~/git/finwo/zsh-titles/titles.plugin.zsh
 [[ -e ~/src/finwo/zsh-titles/titles.plugin.zsh ]] && source ~/src/finwo/zsh-titles/titles.plugin.zsh
 
 # }}}
