@@ -1,5 +1,19 @@
 " vim:fdm=marker:fdl=0
 
+" vim-plug {{{
+
+" Install vim-plug without my interference
+if has('nvim')
+  if empty(glob('~/.vim/autoload/plug.vim'))
+    silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+                \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    autocmd!
+    autocmd VimEnter * PlugInstall
+  endif
+
+endif
+
+" }}}
 " Plugins {{{
 
 " Specify plugin directory
@@ -7,7 +21,6 @@ call plug#begin('~/.vim/plugged')
 
 Plug 'airblade/vim-gitgutter'
 Plug 'alvan/vim-closetag'
-Plug 'carlitux/deoplete-ternjs'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'itchyny/calendar.vim'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -27,6 +40,7 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'w0rp/ale'
 
+
 if has('nvim')
   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 else
@@ -34,6 +48,13 @@ else
   Plug 'roxma/nvim-yarp'
   Plug 'roxma/vim-hug-neovim-rpc'
 endif
+
+" JS-specific
+Plug 'carlitux/deoplete-ternjs'
+
+" PHP-specific
+Plug 'lvht/phpcd.vim', { 'for': 'php', 'do': 'composer install' }
+Plug 'StanAngeloff/php.vim', {'for': 'php'}
 
 " Initialize plugin system
 call plug#end()
@@ -275,6 +296,9 @@ let g:deoplete#sources#ternjs#filetypes = [
                 \ '...'
                 \ ]
 
+" PHPcd
+let g:deoplete#ignore_sources = get(g:, 'deoplete#ignore_sources', {})
+let g:deoplete#ignore_sources.php = ['omni']
 " }}}
 " Calendar {{{
 let g:calendar_google_calendar = 1
