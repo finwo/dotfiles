@@ -53,7 +53,6 @@ endif
 Plug 'carlitux/deoplete-ternjs'
 
 " PHP-specific
-Plug 'lvht/phpcd.vim', { 'for': 'php', 'do': 'composer install' }
 Plug 'StanAngeloff/php.vim', {'for': 'php'}
 
 " Initialize plugin system
@@ -296,9 +295,6 @@ let g:deoplete#sources#ternjs#filetypes = [
                 \ '...'
                 \ ]
 
-" PHPcd
-let g:deoplete#ignore_sources = get(g:, 'deoplete#ignore_sources', {})
-let g:deoplete#ignore_sources.php = ['omni']
 " }}}
 " Calendar {{{
 let g:calendar_google_calendar = 1
