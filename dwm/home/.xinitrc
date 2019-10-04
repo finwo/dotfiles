@@ -23,5 +23,30 @@ if command -v xbindkeys &>/dev/null; then
   xbindkeys
 fi
 
+xsetroot -name " "
+while sleep 10; do
+  XROOT=$(date +"%Y-%m-%d %H:%M")
+
+  # Battery status
+  if [ -d /sys/class/power_supply/BAT0 ]; then
+    case "$(cat /sys/class/power_supply/BAT0/status)" in
+      Discharging)
+        BATICO=""
+        BATLEN="${#BATICO}"
+        INDEX=$(( $(cat /sys/class/power_supply/BAT0/charge_now) * ${BATLEN} / $(cat /sys/class/power_supply/BAT0/charge_full) ))
+        XROOT="${XROOT} ${BATICO:${INDEX}:1}"
+        ;;
+      *)
+        XROOT="${XROOT} "
+        ;;
+    esac
+  fi
+
+  xsetroot -name "${XROOT}"
+done &
+  # TODO: discharching charmap
+  # TODO: index = charge_full * (BATSTATE.length-1) / charge_now
+  # TODO: XROOT += BATSTATE[index]
+
 # window manager
 while sleep 1; do dwm; done
