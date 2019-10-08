@@ -1,0 +1,163 @@
+#!/usr/bin/env bash
+
+# Ensure we're running as root
+if [[ $EUID -ne 0 ]]; then
+  echo "This script must be run as root"
+  exit 1
+fi
+
+ncpu() {
+  if command -v nproc &>/dev/null; then
+    nproc
+  else
+    echo 1
+  fi
+}
+
+export MAKEOPTS="-j$(($(ncpu)+1))"
+export CFLAGS=
+export CONFOPTS=
+
+# Gentoo stuff
+if [ -f /etc/portage/make.conf ]; then
+  source /etc/portage/make.conf
+fi
+
+# Build-in extensions
+BUILDINS=()
+BUILDINS+=("fpm" "calendar" "dba" "exif" "mbstring" "ftp" "pcntl" "soap")
+BUILDINS+=("sockets" "sysvmsg" "sysvsem" "sysvshm" "wddx" "zip" "bcmath")
+
+# Supports
+SUPPORTS=()
+SUPPORTS+=("gnu-ld" "mysqli" "pdo-mysql" "curl" "mhash" "pdo-pgsql" "pgsql")
+SUPPORTS+=("openssl" "zlib")
+
+# Ensure required dirs exist
+mkdir -p /usr/src/phpvm
+mkdir -p /var/cache/phpvm
+
+# Track some variables
+cmd=list
+target="7.2.7"
+
+# Parse args
+while [[ "$#" -gt 0 ]]; do
+  case "$1" in
+    list|version|help)
+      cmd="$1"
+      ;;
+    use)
+      shift
+      target="$1"
+      cmd="use"
+      ;;
+    --help)
+      cmd="help"
+      ;;
+  esac
+  shift
+done
+
+# Decode minor & major versions
+minor=$(echo "${target}" | tr '.' ' ' | awk '{print $2}')
+major=$(echo "${target}" | tr '.' ' ' | awk '{print $1}')
+
+if [ $major -eq 7 ] && [ $minor -ge 1 ]; then
+  BUILDINS+=("intl")
+elif [ $major -gt 7 ]; then
+  BUILDINS+=("intl")
+fi
+
+# Build configure options
+for BUILDIN in ${BUILDINS[@]}; do
+  CONFOPTS="${CONFOPTS} --enable-${BUILDIN}"
+done
+for SUPPORT in ${SUPPORTS[@]}; do
+  CONFOPTS="${CONFOPTS} --with-${SUPPORT}"
+done
+
+# Run command
+case "$cmd" in
+  list)
+    ls /usr/src/phpvm/ | grep "php-"
+    ;;
+  use)
+    rm -rf /usr/local/bin/pear*
+    rm -rf /usr/local/bin/pecl*
+    rm -rf /usr/local/bin/phar*
+    rm -rf /usr/local/bin/php*
+    rm -rf /usr/local/etc/pear*
+    rm -rf /usr/local/etc/php*
+    rm -rf /usr/local/include/php*
+    rm -rf /usr/local/lib/php*
+    rm -rf /usr/local/php*
+    rm -rf /usr/local/sbin/php*
+
+    # Download tarball if missing
+    tarball="/var/cache/phpvm/php-${target}.tar.gz"
+    [ -f "${tarball}" ] || {
+      curl -L "http://php.net/get/php-${target}.tar.gz/from/this/mirror" > "${tarball}" || {
+        rm -rf "${tarball}"
+        break
+      }
+    }
+
+    # Build if not done yet
+    [ -d "/usr/src/phpvm/php-${target}" ] || {
+      tar xzf "${tarball}" -C "/usr/src/phpvm"
+      cd "/usr/src/phpvm/php-${target}"
+
+      ./configure ${CONFOPTS} \
+        && make ${MAKEOPTS} || {
+        cd /usr/src/phpvm
+        rm -rf "/usr/src/phpvm/php-${target}"
+        exit 1
+      }
+    }
+
+    # Install chosen version
+    cd "/usr/src/phpvm/php-${target}"
+    make install
+
+    # Download/update memcached repo
+    [ -d "/usr/src/phpvm/ext-memcached" ] && {
+      cd /usr/src/phpvm/ext-memcached
+      git fetch --all
+    } || {
+      git clone https://github.com/php-memcached-dev/php-memcached /usr/src/phpvm/ext-memcached
+      cd /usr/src/phpvm/ext-memcached
+      git fetch --all
+    }
+
+    # Go to the ext-memcached source
+    cd /usr/src/phpvm/ext-memcached
+    git checkout "php${major}"
+    git pull
+
+    # Compile & install ext-memcached
+    phpize
+    ./configure --disable-memcached-sasl
+    make $MAKEOPTS
+    make install
+
+    # Enable memcached
+    echo "extension=memcached.so" >> /usr/local/lib/php.ini
+
+   ;;
+  help)
+    name=$(basename ${0})
+    echo "Usage:"
+    echo "  ${name} list"
+    echo "  ${name} version"
+    echo "  ${name} use     <version>"
+    echo "  ${name} help"
+    echo ""
+    echo "Commands:"
+    echo "  list     show the list of installed php versions"
+    echo "  version  show the version of the currently in-use php"
+    echo "  use      switch to a (different) php version"
+    echo "  help     show this usage"
+    ;;
+esac
+
