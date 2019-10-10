@@ -14,6 +14,14 @@ ncpu() {
   fi
 }
 
+# https://gist.github.com/lukechilds/a83e1d7127b78fef38c2914c4ececc3c
+version() {
+    curl --silent "https://api.github.com/repos/$1/releases/latest" | # Get latest release from GitHub api
+      grep '"tag_name":' |                                            # Get tag line
+      sed -E 's/.*"([^"]+)".*/\1/'                                    # Pluck JSON value
+}
+
+
 export MAKEOPTS="-j$(($(ncpu)+1))"
 export CFLAGS=
 export CONFOPTS=
@@ -118,32 +126,39 @@ case "$cmd" in
 
     # Install chosen version
     cd "/usr/src/phpvm/php-${target}"
-    make install
+    make install || exit 1
 
-    # Download/update memcached repo
-    [ -d "/usr/src/phpvm/ext-memcached" ] && {
-      cd /usr/src/phpvm/ext-memcached
-      git fetch --all
+    # Add memcached
+    printf "\n" | pecl install memcached || exit 1
+    echo "extension=memcached.so" >> /usr/local/lib/php.ini
+
+    # Add mongodb
+    printf "\n" | pecl install mongodb || exit 1
+    echo "extension=mongodb.so" >> /usr/local/lib/php.ini
+
+    # Add psr
+    printf "\n" | pecl install psr || exit 1
+    echo "extension=psr.so" >> /usr/local/lib/php.ini
+
+    # Download/update phalcon repo
+    [ -d "/usr/src/phpvm/ext-phalcon" ] && {
+      cd /usr/src/phpvm/ext-phalcon
+      git fetch --all --tags || exit 1
     } || {
-      git clone https://github.com/php-memcached-dev/php-memcached /usr/src/phpvm/ext-memcached
-      cd /usr/src/phpvm/ext-memcached
-      git fetch --all
+      git clone https://github.com/phalcon/cphalcon /usr/src/phpvm/ext-phalcon || exit 1
+      cd /usr/src/phpvm/ext-phalcon
+      git fetch --all --tags || exit 1
     }
 
-    # Go to the ext-memcached source
-    cd /usr/src/phpvm/ext-memcached
-    git checkout "php${major}"
+    # Build and install phalcon
+    cd "/usr/src/phpvm/ext-phalcon/build/php${major}/64bits"
+    git checkout $(version phalcon/cphalcon)
     git pull
-
-    # Compile & install ext-memcached
     phpize
-    ./configure --disable-memcached-sasl
-    make clean
-    make $MAKEOPTS
+    ./configure --enable-phalcon
+    make ${MAKEOPTS}
     make install
-
-    # Enable memcached
-    echo "extension=memcached.so" >> /usr/local/lib/php.ini
+    echo "extension=phalcon.so" >> /usr/local/lib/php.ini
 
    ;;
   help)
