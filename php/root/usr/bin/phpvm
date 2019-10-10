@@ -138,6 +138,7 @@ case "$cmd" in
     # Compile & install ext-memcached
     phpize
     ./configure --disable-memcached-sasl
+    make clean
     make $MAKEOPTS
     make install
 
