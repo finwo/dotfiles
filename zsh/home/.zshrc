@@ -39,6 +39,13 @@ function composer {
   return 1
 }
 
+# https://gist.github.com/lukechilds/a83e1d7127b78fef38c2914c4ececc3c
+function version() {
+    curl --silent "https://api.github.com/repos/$1/releases/latest" | # Get latest release from GitHub api
+      grep '"tag_name":' |                                            # Get tag line
+      sed -E 's/.*"([^"]+)".*/\1/'                                    # Pluck JSON value
+}
+
 # }}}
 # Aliases {{{
 
@@ -128,5 +135,10 @@ if [ -f "${HOME}/google-cloud-sdk/completion.zsh.inc" ]; then . "${HOME}/google-
 # Go binaries {{{
 if [ -d "${HOME}/go/bin" ]; then
   export PATH="${HOME}/go/bin:${PATH}"
+fi
+# }}}
+# Symfony {{{
+if [ -d "${HOME}/.symfony/bin" ]; then
+  export PATH="${HOME}/.symfony/bin:${PATH}"
 fi
 # }}}
