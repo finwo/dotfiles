@@ -156,6 +156,7 @@ case "$cmd" in
     git pull
     phpize
     ./configure --enable-phalcon
+    make clean
     make ${MAKEOPTS}
     make install
     echo "extension=phalcon.so" >> /usr/local/lib/php.ini
