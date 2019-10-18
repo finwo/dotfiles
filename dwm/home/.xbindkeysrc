@@ -1,8 +1,8 @@
 "slock"
   Mod4 + l
 
-"echo $(( $(cat /sys/class/backlight/intel_backlight/brightness) + 3 )) | tee /sys/class/backlight/intel_backlight/brightness"
+"xbacklight +1"
     XF86MonBrightnessUp
 
-"echo $(( $(cat /sys/class/backlight/intel_backlight/brightness) - 3 )) | tee /sys/class/backlight/intel_backlight/brightness"
+"xbacklight -1"
     XF86MonBrightnessDown
