@@ -33,7 +33,7 @@ while sleep 10; do
       Discharging)
         BATICO=""
         BATLEN="${#BATICO}"
-        INDEX=$(( $(cat /sys/class/power_supply/BAT0/charge_now) * ${BATLEN} / $(cat /sys/class/power_supply/BAT0/charge_full) ))
+        INDEX=$(( $(cat /sys/class/power_supply/BAT0/energy_now) * ${BATLEN} / $(cat /sys/class/power_supply/BAT0/energy_full) ))
         XROOT="${XROOT} ${BATICO:${INDEX}:1}"
         ;;
       *)
