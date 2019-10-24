@@ -29,14 +29,14 @@ while sleep 10; do
 
   # Battery status
   if [ -d /sys/class/power_supply/BAT0 ]; then
-    case "$(cat /sys/class/power_supply/BAT0/status)" in
-      Discharging)
+    case "$(cat /sys/class/power_supply/AC/online)" in
+      0)
         BATICO=""
         BATLEN="${#BATICO}"
         INDEX=$(( $(cat /sys/class/power_supply/BAT0/energy_now) * ${BATLEN} / $(cat /sys/class/power_supply/BAT0/energy_full) ))
         XROOT="${XROOT} ${BATICO:${INDEX}:1}"
         ;;
-      *)
+      1)
         XROOT="${XROOT} "
         ;;
     esac
