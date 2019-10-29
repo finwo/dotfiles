@@ -142,3 +142,8 @@ if [ -d "${HOME}/.symfony/bin" ]; then
   export PATH="${HOME}/.symfony/bin:${PATH}"
 fi
 # }}}
+# Rust support {{{
+if [ -d "${HOME}/.cargo/bin" ]; then
+  export PATH="${HOME}/.cargo/bin:${PATH}"
+fi
+# }}}
