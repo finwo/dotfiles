@@ -85,6 +85,7 @@ for SUPPORT in ${SUPPORTS[@]}; do
   CONFOPTS="${CONFOPTS} --with-${SUPPORT}"
 done
 
+
 # Run command
 case "$cmd" in
   list)
@@ -128,16 +129,68 @@ case "$cmd" in
     cd "/usr/src/phpvm/php-${target}"
     make install || exit 1
 
-    # Add memcached
-    printf "\n" | pecl install memcached || exit 1
+    # Download/update memcached repo
+    [ -d "/usr/src/phpvm/ext-memcached" ] && {
+      cd /usr/src/phpvm/ext-memcached
+      git fetch --all --tags || exit 1
+    } || {
+      git clone https://github.com/php-memcached-dev/php-memcached /usr/src/phpvm/ext-memcached || exit 1
+      cd /usr/src/phpvm/ext-memcached
+      git fetch --all --tags || exit 1
+    }
+
+    # Go to the ext-memcached source
+    cd /usr/src/phpvm/ext-memcached
+    git pull
+
+    # Compile & install ext-memcached
+    printf "\n" | phpize || exit 1
+    printf "\n" | ./configure --disable-memcached-sasl || exit 1
+    make $MAKEOPTS || exit 1
+    make install || exit 1
     echo "extension=memcached.so" >> /usr/local/lib/php.ini
 
-    # Add mongodb
-    printf "\n" | pecl install mongodb || exit 1
+    # Download/update mongodb repo
+    [ -d "/usr/src/phpvm/ext-mongodb" ] && {
+      cd /usr/src/phpvm/ext-mongodb
+      git fetch --all --tags || exit 1
+    } || {
+      git clone https://github.com/mongodb/mongo-php-driver /usr/src/phpvm/ext-mongodb || exit 1
+      cd /usr/src/phpvm/ext-mongodb
+      git fetch --all --tags || exit 1
+    }
+
+    # Go to the ext-mongodb source
+    cd /usr/src/phpvm/ext-mongodb
+    git submodule update --init --recursive --force
+    git pull
+
+    # Compile & install ext-mongodb
+    printf "\n" | phpize || exit 1
+    printf "\n" | ./configure || exit 1
+    make $MAKEOPTS || exit 1
+    make install || exit 1
     echo "extension=mongodb.so" >> /usr/local/lib/php.ini
 
-    # Add psr
-    printf "\n" | pecl install psr || exit 1
+    # Download/update mongodb repo
+    [ -d "/usr/src/phpvm/ext-psr" ] && {
+      cd /usr/src/phpvm/ext-psr
+      git fetch --all --tags || exit 1
+    } || {
+      git clone https://github.com/jbboehr/php-psr /usr/src/phpvm/ext-psr || exit 1
+      cd /usr/src/phpvm/ext-psr
+      git fetch --all --tags || exit 1
+    }
+
+    # Go to the ext-psr source
+    cd /usr/src/phpvm/ext-psr
+    git pull
+
+    # Compile & install ext-pr
+    printf "\n" | phpize || exit 1
+    printf "\n" | ./configure || exit 1
+    make $MAKEOPTS || exit 1
+    make install || exit 1
     echo "extension=psr.so" >> /usr/local/lib/php.ini
 
     # Download/update phalcon repo
