@@ -24,9 +24,7 @@ bindkey -v
 # Custom commands {{{
 
 function getComposer {
-  php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
-  php composer-setup.php
-  php -r "unlink('composer-setup.php');"
+  curl https://getcomposer.org/installer | php
 }
 
 function composer {
