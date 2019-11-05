@@ -30,12 +30,19 @@ function getComposer {
 }
 
 function composer {
+  for p in $(echo $PATH | tr ':' '\n'); do
+    for i in $(echo composer{.phar,}); do
+      [ -f "$p/$i" ] || continue
+      php "$p/$i" "$@"
+      return $?
+    done
+  done
   for i in $(echo {,~/bin/,/usr/bin/,/usr/local/bin/}composer{.phar,}); do
     [ -f "$i" ] || continue
     php "$i" "$@"
     return $?
   done
-  echo "Composer is not installed on this system"
+  echo "composer is not installed on this system"
   return 1
 }
 
