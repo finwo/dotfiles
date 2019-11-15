@@ -8,7 +8,7 @@ fi
 
 # Make the cursor disappear when typing
 if command -v xbanish &>/dev/null; then
-  xbanish &
+  xbanish -m se &
 fi
 
 # Make repeating keys faster
@@ -23,7 +23,7 @@ if command -v xbindkeys &>/dev/null; then
   xbindkeys
 fi
 
-xsetroot -name " "
+xsetroot -name ""
 while sleep 10; do
   XROOT=$(date +"%Y-%m-%d %H:%M")
 
