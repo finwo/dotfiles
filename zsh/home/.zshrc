@@ -159,3 +159,37 @@ if [ -d "${HOME}/.nvm" ]; then
   [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 fi
 # }}}
+# qemu-create {{{
+function qemu-create () {
+
+  # Detect the VM settings
+  NAME="${1:-machine}"
+  HDSIZE="${2:-40G}"
+
+  # Create a directory for it
+  mkdir -p "${NAME}"
+
+  # Write run.sh
+  cat <<EOF > "${NAME}/run.sh"
+#!/usr/bin/env bash
+ARGS=()
+ARGS+=" -display gtk"
+ARGS+=" -smp 2"
+ARGS+=" -soundhw all"
+ARGS+=" -m \${mem:-2048}"
+ARGS+=" -name \${name:-\$(basename \$(pwd))}"
+command -v 'kvm-ok' &>/dev/null && kvm-ok &>/dev/null && ARGS+=" --enable-kvm"
+[ -f sda.qcow  ] && ARGS+=" -hda sda.qcow"
+[ -f sda.img   ] && ARGS+=" -hda sda.img"
+[ -f cdrom.iso ] && ARGS+=" -cdrom cdrom.iso -boot d"
+qemu-system-x86_64 \${ARGS}
+EOF
+
+  # Make run.sh executable
+  chmod +x "${NAME}/run.sh"
+
+  # Create the drive image
+  qemu-img create -f qcow2 "${NAME}/sda.qcow" "${HDSIZE}"
+
+}
+# }}}
