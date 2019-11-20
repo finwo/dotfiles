@@ -172,13 +172,16 @@ function qemu-create () {
   # Write run.sh
   cat <<EOF > "${NAME}/run.sh"
 #!/usr/bin/env bash
+cd \$(dirname \$0)
 ARGS=()
 ARGS+=" -display gtk"
 ARGS+=" -smp 2"
 ARGS+=" -soundhw all"
 ARGS+=" -m \${mem:-2048}"
 ARGS+=" -name \${name:-\$(basename \$(pwd))}"
+ARGS+=" -nic user"
 command -v 'kvm-ok' &>/dev/null && kvm-ok &>/dev/null && ARGS+=" --enable-kvm"
+[ -f vmlinuz   ] && ARGS+=" -kernel vmlinuz"
 [ -f sda.qcow  ] && ARGS+=" -hda sda.qcow"
 [ -f sda.img   ] && ARGS+=" -hda sda.img"
 [ -f cdrom.iso ] && ARGS+=" -cdrom cdrom.iso -boot d"
