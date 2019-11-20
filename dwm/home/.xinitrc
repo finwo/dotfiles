@@ -8,7 +8,7 @@ fi
 
 # Make the cursor disappear when typing
 if command -v xbanish &>/dev/null; then
-  xbanish -m se &
+  xbanish &
 fi
 
 # Make repeating keys faster
