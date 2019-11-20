@@ -23,8 +23,11 @@ version() {
 
 
 export MAKEOPTS="-j$(($(ncpu)+1))"
-export CFLAGS=
 export CONFOPTS=
+
+if [ -z "${CFLAGS+x}" ]; then
+  export CFLAGS=
+fi
 
 # Gentoo stuff
 if [ -f /etc/portage/make.conf ]; then
