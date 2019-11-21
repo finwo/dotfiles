@@ -24,14 +24,15 @@ version() {
 
 export MAKEOPTS="-j$(($(ncpu)+1))"
 export CONFOPTS=
-
-if [ -z "${CFLAGS+x}" ]; then
-  export CFLAGS=
-fi
+export CFLAGS=
 
 # Gentoo stuff
 if [ -f /etc/portage/make.conf ]; then
   source /etc/portage/make.conf
+fi
+
+if [ -f /etc/phpvmrc ]; then
+  source /etc/phpvmrc
 fi
 
 # Build-in extensions
