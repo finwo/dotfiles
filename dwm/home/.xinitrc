@@ -11,13 +11,6 @@ if command -v xbanish &>/dev/null; then
   xbanish &
 fi
 
-# Make repeating keys faster
-if command -v xset &>/dev/null; then
-  while sleep 60; do
-    xset r rate 200 40
-  done &
-fi
-
 # Custom key bindings
 if command -v xbindkeys &>/dev/null; then
   xbindkeys
@@ -40,6 +33,11 @@ while sleep 10; do
         XROOT="${XROOT} "
         ;;
     esac
+  fi
+
+  # Make repeating keys faster
+  if command -v xset &>/dev/null; then
+    xset r rate 200 40
   fi
 
   xsetroot -name "${XROOT}"
