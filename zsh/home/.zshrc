@@ -35,7 +35,7 @@ function composer {
       return $?
     done
   done
-  for i in $(echo {,~/bin/,/usr/bin/,/usr/local/bin/}composer{.phar,}); do
+  for i in $(echo {,\~/,{/usr,/opt}{/local,}/bin/}composer{.phar,}); do
     [ -f "$i" ] || continue
     php "$i" "$@"
     return $?
@@ -181,6 +181,7 @@ ARGS+=" -m \${mem:-2048}"
 ARGS+=" -name \${name:-\$(basename \$(pwd))}"
 ARGS+=" -nic user"
 command -v 'kvm-ok' &>/dev/null && kvm-ok &>/dev/null && ARGS+=" --enable-kvm"
+[ -f boot.efi  ] && ARGS+=" -kernel boot.efi"
 [ -f vmlinuz   ] && ARGS+=" -kernel vmlinuz"
 [ -f sda.qcow  ] && ARGS+=" -hda sda.qcow"
 [ -f sda.img   ] && ARGS+=" -hda sda.img"

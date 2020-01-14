@@ -1,0 +1,25 @@
+diff --git a/config.def.h b/config.def.h
+index defa426..845ec92 100644
+--- a/config.def.h
++++ b/config.def.h
+@@ -1,7 +1,7 @@
+ /* See LICENSE file for copyright and license details. */
+ 
+ /* appearance */
+-static const char font[]        = "monospace:size=9";
++static const char font[]        = "Hack Nerd Font Mono:size=6:antialias=true:autohint=true";
+ static const char* normbgcolor  = "#222222";
+ static const char* normfgcolor  = "#cccccc";
+ static const char* selbgcolor   = "#555555";
+@@ -27,9 +27,9 @@ static Bool npisrelative  = False;
+         .v = (char *[]){ "/bin/sh", "-c", \
+                 "prop=\"`xwininfo -children -id $1 | grep '^     0x' |" \
+                 "sed -e's@^ *\\(0x[0-9a-f]*\\) \"\\([^\"]*\\)\".*@\\1 \\2@' |" \
+-                "xargs -0 printf %b | dmenu -l 10 -w $1`\" &&" \
++                "xargs -0 printf %b | dmenu -l 10 -w $1 -fn \"$2\"`\" &&" \
+                 "xprop -id $1 -f $0 8s -set $0 \"$prop\"", \
+-                p, winid, NULL \
++                p, winid, font, NULL \
+         } \
+ }
+ 
