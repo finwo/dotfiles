@@ -16,13 +16,6 @@ if command -v xbindkeys &>/dev/null; then
   xbindkeys
 fi
 
-# Safe settings
-xsetroot -name ""
-hasUsbcDisplay=2
-xrandr --dpi 284 --fb 3840x2160 \
-  --output DP-2 --panning 3840x2160 --scale 2x2 \
-  --output DP-1 --off
-
 # Xresources
 if command -v xrdb &>/dev/null && [ -f ~/.Xresources ]; then
   xrdb ~/.Xresources
@@ -48,7 +41,7 @@ while sleep 1; do
 
   # Battery status
   if [ -d /sys/class/power_supply/BAT0 ]; then
-    case "$(cat /sys/class/power_supply/AC/online)" in
+    case "$(cat /sys/class/power_supply/AC0/online)" in
       0)
         for cpu in `seq 0 11`; do
           echo "powersave" | tee /sys/devices/system/cpu/cpu$cpu/cpufreq/scaling_governor
@@ -69,23 +62,6 @@ while sleep 1; do
 
   # Set title
   xsetroot -name "${XROOT}"
-
-  # # Detect DP-1 connected
-  if xrandr | grep DP-1 | grep -v disconnected &>/dev/null; then
-    if [ $hasUsbcDisplay -ne 1 ]; then
-      hasUsbcDisplay=1
-      xrandr --dpi 284 --fb 7680x2160 \
-        --output DP-2 --panning 3840x2160+0+0 --scale 2x2 \
-        --output DP-1 --mode 3840x2160 --pos 3840x0 --scale 1x1
-    fi
-  else
-    if [ $hasUsbcDisplay -ne 0 ]; then
-      hasUsbcDisplay=0
-      xrandr --dpi 284 --fb 3840x2160 \
-        --output DP-2 --panning 3840x2160 --scale 2x2 \
-        --output DP-1 --off
-    fi
-  fi
 
 done &
 
