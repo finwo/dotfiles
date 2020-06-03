@@ -204,7 +204,7 @@ let g:ale_lint_on_enter = 0
 
 " Basics
 let g:deoplete#enable_at_startup = 1
-let g:deoplete#auto_complete_delay = 0
+call deoplete#custom#option('auto_complete_delay', 200)
 let g:echodoc_enable_at_startup = 1
 set splitbelow
 set completeopt+=menuone,noinsert,noselect
@@ -217,7 +217,7 @@ endfunction
 function! Multiple_cursors_after()
   let b:deoplete_disable_auto_complete=0
 endfunction
-let g:deoplete#file#enable_buffer_path=1
+call deoplete#custom#option('enable_buffer_path', 1)
 call deoplete#custom#source('buffer', 'mark', 'ℬ')
 call deoplete#custom#source('tern', 'mark', '')
 call deoplete#custom#source('padawan', 'mark', "\ue608")
@@ -240,7 +240,7 @@ function! Preview_func()
     endif
 endfunction
 autocmd WinEnter * call Preview_func()
-let g:deoplete#ignore_sources = {'_': ['around', 'buffer' ]}
+call deoplete#custom#option('ignore_sources', {'_': ['around', 'buffer' ]})
 
 " Whether to include the types of the completions in the result data. Default: 0
 let g:deoplete#sources#ternjs#types = 1
