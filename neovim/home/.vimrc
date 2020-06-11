@@ -151,6 +151,20 @@ nnoremap <s-tab> :bprevious<cr>
 nnoremap <c-w> :BD<cr>
 nnoremap <c-n> :NERDTreeToggle<cr>
 " }}}
+" X11 Clipboard support {{{
+
+" Copy to clipboard
+vnoremap  <leader>y  "+y
+nnoremap  <leader>Y  "+yg_
+nnoremap  <leader>y  "+y
+
+" Paste from clipboard
+nnoremap <leader>p "+p
+nnoremap <leader>P "+P
+vnoremap <leader>p "+p
+vnoremap <leader>P "+P
+
+" }}}
 " Airline {{{
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts = 1
@@ -204,7 +218,7 @@ let g:ale_lint_on_enter = 0
 
 " Basics
 let g:deoplete#enable_at_startup = 1
-call deoplete#custom#option('auto_complete_delay', 200)
+call deoplete#custom#option('auto_complete_delay', 0)
 let g:echodoc_enable_at_startup = 1
 set splitbelow
 set completeopt+=menuone,noinsert,noselect
