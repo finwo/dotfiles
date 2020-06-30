@@ -1,5 +1,12 @@
 # vim:fdm=marker:fdl=0
 
+# Homebrew {{{
+
+if [ -d /home/linuxbrew/.linuxbrew ]; then
+  eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
+fi
+
+# }}}
 # OSX coreutils {{{
 
 if command -v brew &>/dev/null; then
@@ -22,27 +29,6 @@ bindkey -v
 
 # }}}
 # Custom commands {{{
-
-function getComposer {
-  curl https://getcomposer.org/installer | php
-}
-
-function composer {
-  for p in $(echo $PATH | tr ':' '\n'); do
-    for i in $(echo composer{.phar,}); do
-      [ -f "$p/$i" ] || continue
-      php "$p/$i" "$@"
-      return $?
-    done
-  done
-  for i in $(echo {,\~/,{/usr,/opt}{/local,}/bin/}composer{.phar,}); do
-    [ -f "$i" ] || continue
-    php "$i" "$@"
-    return $?
-  done
-  echo "composer is not installed on this system"
-  return 1
-}
 
 # https://gist.github.com/lukechilds/a83e1d7127b78fef38c2914c4ececc3c
 function version() {
@@ -124,18 +110,24 @@ PROMPT_COMMAND=
 # }}}
 # Titles {{{
 
-[[ -e ~/src/finwo/zsh-titles/titles.plugin.zsh ]] && source ~/src/finwo/zsh-titles/titles.plugin.zsh
+[[ -e ~/src/jreese/zsh-titles/titles.plugin.zsh ]] && source ~/src/jreese/zsh-titles/titles.plugin.zsh
 
 # }}}
 # FuzzyFinder {{{
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 # }}}
 # Google Cloud SDK {{{
+
 # The next line updates PATH for the Google Cloud SDK.
-if [ -f "${HOME}/google-cloud-sdk/path.zsh.inc" ]; then . "${HOME}/google-cloud-sdk/path.zsh.inc"; fi
+if [ -f '/home/finwo/google-cloud-sdk/path.zsh.inc' ]; then
+  . '/home/finwo/google-cloud-sdk/path.zsh.inc'
+fi
 
 # The next line enables shell command completion for gcloud.
-if [ -f "${HOME}/google-cloud-sdk/completion.zsh.inc" ]; then . "${HOME}/google-cloud-sdk/completion.zsh.inc"; fi
+if [ -f '/home/finwo/google-cloud-sdk/completion.zsh.inc' ]; then
+  . '/home/finwo/google-cloud-sdk/completion.zsh.inc'
+fi
+
 # }}}
 # Go binaries {{{
 if [ -d "${HOME}/go/bin" ]; then
@@ -151,6 +143,37 @@ fi
 if [ -d "${HOME}/.cargo/bin" ]; then
   export PATH="${HOME}/.cargo/bin:${PATH}"
 fi
+# }}}
+# Global composer {{{
+
+# Simple composer fetcher
+function getComposer {
+  curl https://getcomposer.org/installer | php
+}
+
+# Auto-detects where composer(.phar) is installed
+function composer {
+  for p in $(echo $PATH | tr ':' '\n'); do
+    for i in $(echo composer{.phar,}); do
+      [ -f "$p/$i" ] || continue
+      php "$p/$i" "$@"
+      return $?
+    done
+  done
+  for i in $(echo {,\~/,{/usr,/opt}{/local,}/bin/}composer{.phar,}); do
+    [ -f "$i" ] || continue
+    php "$i" "$@"
+    return $?
+  done
+  echo "composer is not installed on this system"
+  return 1
+}
+
+# Use composer-installed binaries
+if [ -d "${HOME}/.config/composer/vendor/bin" ]; then
+  export PATH="${HOME}/.config/composer/vendor/bin:${PATH}"
+fi
+
 # }}}
 # Node Version Manager {{{
 if [ -d "${HOME}/.nvm" ]; then
@@ -196,4 +219,9 @@ EOF
   qemu-img create -f qcow2 "${NAME}/sda.qcow" "${HDSIZE}"
 
 }
+# }}}
+# nativescript {{{
+if [ -f /home/finwo/.tnsrc ]; then 
+    source /home/finwo/.tnsrc 
+fi
 # }}}
