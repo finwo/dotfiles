@@ -1,16 +1,16 @@
 # vim:fdm=marker:fdl=0
+# set -ex
 
 # Homebrew {{{
 
 if [ -d /home/linuxbrew/.linuxbrew ]; then
-  eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
-fi
-
-# }}}
-# OSX coreutils {{{
-
-if command -v brew &>/dev/null; then
-  export PATH="$(brew --prefix coreutils)/libexec/gnubin:$PATH"
+  # eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
+  export HOMEBREW_PREFIX="/home/linuxbrew/.linuxbrew";
+  export HOMEBREW_CELLAR="/home/linuxbrew/.linuxbrew/Cellar";
+  export HOMEBREW_REPOSITORY="/home/linuxbrew/.linuxbrew/Homebrew";
+  export PATH="/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin${PATH+:$PATH}";
+  export MANPATH="/home/linuxbrew/.linuxbrew/share/man${MANPATH+:$MANPATH}:";
+  export INFOPATH="/home/linuxbrew/.linuxbrew/share/info${INFOPATH+:$INFOPATH}";
 fi
 
 # }}}
@@ -181,11 +181,17 @@ fi
 
 # }}}
 # Node Version Manager {{{
-if [ -d "${HOME}/.nvm" ]; then
+
+# Load on-demand
+nvm() {
+  echo 'Loading NVM...'
+  unset -f nvm
   export NVM_DIR="$HOME/.nvm"
   [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
   [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-fi
+  nvm "@"
+}
+#
 # }}}
 # qemu-create {{{
 function qemu-create () {
