@@ -104,7 +104,7 @@ export npm_config_jobs=$(( $(nproc) + 1 ))
 
 autoload -U colors && colors
 autoload -U promptinit && promptinit
-prompt="%(?..[%{$fg[red]%}%?%{$reset_color%}] )%{$fg[yellow]%}%n%{$reset_color%}:%{$fg[green]%}%c%{$reset_color%}%# "
+prompt="[%{$fg[gray]%}%D{%H:%M}%{$reset_color%}] %(?..[%{$fg[red]%}%?%{$reset_color%}] )%{$fg[yellow]%}%n%{$reset_color%}:%{$fg[green]%}%c%{$reset_color%}%# "
 PROMPT_COMMAND=
 
 # }}}
@@ -132,6 +132,11 @@ fi
 # Go binaries {{{
 if [ -d "${HOME}/go/bin" ]; then
   export PATH="${HOME}/go/bin:${PATH}"
+fi
+# }}}
+# Python binaries {{{
+if [ -d "${HOME}/.local/bin" ]; then
+  export PATH="${HOME}/.local/bin:${PATH}"
 fi
 # }}}
 # Symfony {{{
