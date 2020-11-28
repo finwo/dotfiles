@@ -137,6 +137,7 @@ endif
 " }}}
 " Colors {{{
 
+set bg=dark         " dark mode
 set termguicolors   " use colors instead of styles
 syntax enable       " enable syntax highlighting
 colorscheme gruvbox " nice theme
@@ -150,6 +151,10 @@ nnoremap <tab> :bnext<cr>
 nnoremap <s-tab> :bprevious<cr>
 nnoremap <c-w> :BD<cr>
 nnoremap <c-n> :NERDTreeToggle<cr>
+nnoremap <c-h> <c-w><c-h>
+nnoremap <c-j> <c-w><c-j>
+nnoremap <c-k> <c-w><c-k>
+nnoremap <c-l> <c-w><c-l>
 " }}}
 " X11 Clipboard support {{{
 
@@ -323,4 +328,7 @@ xmap ga <Plug>(EasyAlign)
 " Start interactive EasyAlgin for a motion/text object (e.g. gaip)
 nmap ga <Plug>(EasyAlign)
 
+" }}}
+" Syntax detection {{{
+au BufNewFile,BufRead,BufReadPost *.hbs set syntax=handlebars
 " }}}
