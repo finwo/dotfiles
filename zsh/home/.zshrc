@@ -207,19 +207,31 @@ function qemu-create () {
   cat <<EOF > "${NAME}/run.sh"
 #!/usr/bin/env bash
 cd \$(dirname \$0)
+if [ -f config ]; then
+  source config
+fi
 ARGS=()
 ARGS+=" -display gtk"
-ARGS+=" -smp 2"
+ARGS+=" -smp \${cpus:-2}"
 ARGS+=" -soundhw all"
 ARGS+=" -m \${mem:-2048}"
 ARGS+=" -name \${name:-\$(basename \$(pwd))}"
 ARGS+=" -nic user"
 command -v 'kvm-ok' &>/dev/null && kvm-ok &>/dev/null && ARGS+=" --enable-kvm"
-[ -f boot.efi  ] && ARGS+=" -kernel boot.efi"
-[ -f vmlinuz   ] && ARGS+=" -kernel vmlinuz"
-[ -f sda.qcow  ] && ARGS+=" -hda sda.qcow"
-[ -f sda.img   ] && ARGS+=" -hda sda.img"
-[ -f cdrom.iso ] && ARGS+=" -cdrom cdrom.iso -boot d"
+if [ ! -z "\${kernel}" ]; then ARGS+=" -kernel \${kernel}"; fi
+if [ ! -z "\${initrd}" ]; then ARGS+=" -kernel \${initrd}"; fi
+if [ -z "\${kernel}" ]; then
+  [ -f boot.efi   ] && ARGS+=" -kernel boot.efi"
+  [ -f kernel.bin ] && ARGS+=" -kernel kernel.bin"
+  [ -f vmlinuz    ] && ARGS+=" -kernel vmlinuz"
+fi
+if [ -z "\${initrd}" ]; then
+  [ -f initrd     ] && ARGS+=" -initrd initrd"
+  [ -f initrd.gz  ] && ARGS+=" -initrd initrd.gz"
+fi
+[ -f sda.qcow   ] && ARGS+=" -hda sda.qcow"
+[ -f sda.img    ] && ARGS+=" -hda sda.img"
+[ -f cdrom.iso  ] && ARGS+=" -cdrom cdrom.iso -boot d"
 qemu-system-x86_64 \${ARGS}
 EOF
 
