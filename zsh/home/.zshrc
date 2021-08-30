@@ -248,3 +248,7 @@ if [ -f /home/finwo/.tnsrc ]; then
     source /home/finwo/.tnsrc 
 fi
 # }}}
+# pnpm {{{
+export PNPM_HOME="/home/finwo/.local/share/pnpm"
+export PATH="$PNPM_HOME:$PATH"
+}}}
