@@ -24,6 +24,7 @@ Plug 'alvan/vim-closetag'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'git-time-metric/gtm-vim-plugin'
 Plug 'itchyny/calendar.vim'
+Plug 'jparise/vim-graphql'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'junegunn/vim-easy-align'
