@@ -90,6 +90,12 @@ if [[ $TERM == screen* ]]; then
   export SCREEN=yes
 fi
 
+# TERM
+# nvim has issues with xterm-256color
+if [[ $TERM == xterm-256color ]]; then
+  export TERM=xterm-color
+fi
+
 # Auto-cd
 setopt autocd
 
@@ -126,6 +132,16 @@ fi
 # The next line enables shell command completion for gcloud.
 if [ -f '/home/finwo/google-cloud-sdk/completion.zsh.inc' ]; then
   . '/home/finwo/google-cloud-sdk/completion.zsh.inc'
+fi
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/home/finwo/Downloads/google-cloud-sdk/path.zsh.inc' ]; then
+  . '/home/finwo/Downloads/google-cloud-sdk/path.zsh.inc'
+fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/home/finwo/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then
+  . '/home/finwo/Downloads/google-cloud-sdk/completion.zsh.inc'
 fi
 
 # }}}
@@ -252,3 +268,4 @@ fi
 export PNPM_HOME="/home/finwo/.local/share/pnpm"
 export PATH="$PNPM_HOME:$PATH"
 # }}}
+
