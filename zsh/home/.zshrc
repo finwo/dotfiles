@@ -90,11 +90,11 @@ if [[ $TERM == screen* ]]; then
   export SCREEN=yes
 fi
 
-# TERM
-# nvim has issues with xterm-256color
-if [[ $TERM == xterm-256color ]]; then
-  export TERM=xterm-color
-fi
+# # TERM
+# # nvim has issues with xterm-256color
+# if [[ $TERM == xterm-256color ]]; then
+#   export TERM=xterm-color
+# fi
 
 # Auto-cd
 setopt autocd
@@ -123,6 +123,12 @@ PROMPT_COMMAND=
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 # }}}
 # Google Cloud SDK {{{
+
+# Gcloud sdk doesn't support python 3.10 yet
+# Using python2 as compatibility layer
+if [ -d '/home/finwo/google-cloud-sdk' ] || [ -d '/home/finwo/Downloads/google-cloud-sdk' ]; then
+  export CLOUDSDK_PYTHON=$(which python2)
+fi
 
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/home/finwo/google-cloud-sdk/path.zsh.inc' ]; then
