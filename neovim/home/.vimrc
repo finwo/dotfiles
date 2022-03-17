@@ -205,9 +205,9 @@ let g:ale_sign_column_always = 1
 " What programs handle what
 let g:ale_fixers = {}
 let g:ale_fixers['javascript'] = ['eslint', 'prettier']
-let g:ale_fixers['css'] = ['prettier']
-let g:ale_fixers['vue'] = ['prettier']
-let g:ale_fixers['scss'] = ['stylelint', 'prettier']
+let g:ale_fixers['typescript'] = ['eslint', 'prettier']
+let g:ale_fixers['vue']        = ['eslint']
+let g:ale_fixers['scss']       = ['stylelint']
 
 " Automagically fix
 let g:ale_open_list= 0
