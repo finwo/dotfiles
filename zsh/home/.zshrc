@@ -38,6 +38,14 @@ function version() {
 }
 
 # }}}
+# OSX coreutil fixes {{{
+
+command -v gcp &>/dev/null && alias cp="gcp"
+command -v gls &>/dev/null && alias ls="gls"
+command -v gmv &>/dev/null && alias mv="gmv"
+command -v grm &>/dev/null && alias rm="grm"
+
+# }}}
 # Aliases {{{
 
 # VI
@@ -47,6 +55,9 @@ command -v "vim"  &>/dev/null && alias vi="vim"
 # LS
 alias ls="ls --color=always"
 alias ll="ls -lsa"
+
+# OSX LS fix
+command -v gls &>/dev/null && alias ls="gls --color=always"
 
 # $EDITOR
 command -v nano &>/dev/null && export EDITOR=nano
