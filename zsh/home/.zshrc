@@ -49,7 +49,7 @@ alias ls="ls --color=always"
 alias ll="ls -lsa"
 
 # $EDITOR
-command -v ed   &>/dev/null && export EDITOR=ed
+command -v nano &>/dev/null && export EDITOR=nano
 command -v vi   &>/dev/null && export EDITOR=vi
 command -v vim  &>/dev/null && export EDITOR=vim
 command -v nvim &>/dev/null && export EDITOR=nvim
