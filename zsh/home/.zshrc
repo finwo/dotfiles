@@ -3,10 +3,7 @@
 
 # Homebrew {{{
 
-<<<<<<< HEAD
-=======
 # Linuxbrew
->>>>>>> sync-conflicted
 if [ -d /home/linuxbrew/.linuxbrew ]; then
   # eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
   export HOMEBREW_PREFIX="/home/linuxbrew/.linuxbrew";
@@ -17,14 +14,11 @@ if [ -d /home/linuxbrew/.linuxbrew ]; then
   export INFOPATH="/home/linuxbrew/.linuxbrew/share/info${INFOPATH+:$INFOPATH}";
 fi
 
-<<<<<<< HEAD
-=======
 # openjdk 11 on osx
 if [ -d "/opt/homebrew/opt/openjdk@11/bin" ]; then
   export PATH="/opt/homebrew/opt/openjdk@11/bin:$PATH"
 fi
 
->>>>>>> sync-conflicted
 # }}}
 # History {{{
 
@@ -94,14 +88,10 @@ if [[ -s '/etc/zsh_command_not_found' ]]; then
   source '/etc/zsh_command_not_found'
 fi
 
-<<<<<<< HEAD
-=======
 # Typo corrector
 if command -v thefuck &>/dev/null; then
   eval "$(thefuck --alias)"
 fi
-
->>>>>>> sync-conflicted
 # }}}
 # Tab-completion {{{
 
@@ -146,11 +136,7 @@ export npm_config_jobs=$(( $(nproc) + 1 ))
 
 autoload -U colors && colors
 autoload -U promptinit && promptinit
-<<<<<<< HEAD
-prompt="[%{$fg[gray]%}%D{%H:%M}%{$reset_color%}] %(?..[%{$fg[red]%}%?%{$reset_color%}] )%{$fg[yellow]%}%n%{$reset_color%}:%{$fg[green]%}%c%{$reset_color%}%# "
-=======
 prompt="[%{$fg[white]%}%D{%H:%M}%{$reset_color%}] %(?..[%{$fg[red]%}%?%{$reset_color%}] )%{$fg[yellow]%}%n%{$reset_color%}:%{$fg[green]%}%c%{$reset_color%}%# "
->>>>>>> sync-conflicted
 PROMPT_COMMAND=
 
 # }}}
