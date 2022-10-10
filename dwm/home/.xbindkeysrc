@@ -1,0 +1,8 @@
+"slock"
+  Mod4 + l
+
+"xbacklight +1"
+    XF86MonBrightnessUp
+
+"xbacklight -1"
+    XF86MonBrightnessDown

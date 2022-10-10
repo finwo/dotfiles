@@ -1,0 +1,13 @@
+[user]
+  email = robin@finwo.nl
+  name = Robin Bron
+[push]
+  followTags = true
+[credential]
+  helper = store
+[pull]
+  rebase = false
+[init]
+  defaultBranch = master
+[core]
+	ignorecase = false
