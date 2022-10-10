@@ -3,6 +3,10 @@
 
 # Homebrew {{{
 
+<<<<<<< HEAD
+=======
+# Linuxbrew
+>>>>>>> sync-conflicted
 if [ -d /home/linuxbrew/.linuxbrew ]; then
   # eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
   export HOMEBREW_PREFIX="/home/linuxbrew/.linuxbrew";
@@ -13,6 +17,14 @@ if [ -d /home/linuxbrew/.linuxbrew ]; then
   export INFOPATH="/home/linuxbrew/.linuxbrew/share/info${INFOPATH+:$INFOPATH}";
 fi
 
+<<<<<<< HEAD
+=======
+# openjdk 11 on osx
+if [ -d "/opt/homebrew/opt/openjdk@11/bin" ]; then
+  export PATH="/opt/homebrew/opt/openjdk@11/bin:$PATH"
+fi
+
+>>>>>>> sync-conflicted
 # }}}
 # History {{{
 
@@ -37,6 +49,11 @@ function version() {
       sed -E 's/.*"([^"]+)".*/\1/'                                    # Pluck JSON value
 }
 
+# }}}
+# Python binaries {{{
+if [ -d "${HOME}/.local/bin" ]; then
+  export PATH="${HOME}/.local/bin:${PATH}"
+fi
 # }}}
 # OSX coreutil fixes {{{
 
@@ -77,6 +94,14 @@ if [[ -s '/etc/zsh_command_not_found' ]]; then
   source '/etc/zsh_command_not_found'
 fi
 
+<<<<<<< HEAD
+=======
+# Typo corrector
+if command -v thefuck &>/dev/null; then
+  eval "$(thefuck --alias)"
+fi
+
+>>>>>>> sync-conflicted
 # }}}
 # Tab-completion {{{
 
@@ -121,7 +146,11 @@ export npm_config_jobs=$(( $(nproc) + 1 ))
 
 autoload -U colors && colors
 autoload -U promptinit && promptinit
+<<<<<<< HEAD
 prompt="[%{$fg[gray]%}%D{%H:%M}%{$reset_color%}] %(?..[%{$fg[red]%}%?%{$reset_color%}] )%{$fg[yellow]%}%n%{$reset_color%}:%{$fg[green]%}%c%{$reset_color%}%# "
+=======
+prompt="[%{$fg[white]%}%D{%H:%M}%{$reset_color%}] %(?..[%{$fg[red]%}%?%{$reset_color%}] )%{$fg[yellow]%}%n%{$reset_color%}:%{$fg[green]%}%c%{$reset_color%}%# "
+>>>>>>> sync-conflicted
 PROMPT_COMMAND=
 
 # }}}
@@ -165,11 +194,6 @@ fi
 # Go binaries {{{
 if [ -d "${HOME}/go/bin" ]; then
   export PATH="${HOME}/go/bin:${PATH}"
-fi
-# }}}
-# Python binaries {{{
-if [ -d "${HOME}/.local/bin" ]; then
-  export PATH="${HOME}/.local/bin:${PATH}"
 fi
 # }}}
 # Symfony {{{
@@ -285,4 +309,30 @@ fi
 export PNPM_HOME="/home/finwo/.local/share/pnpm"
 export PATH="$PNPM_HOME:$PATH"
 # }}}
+# Android Studio {{{
 
+# On a mac
+if [ -d ~/Library/Android/sdk ]; then
+  export ANDROID_HOME=~/Library/Android/sdk
+  export ANDROID_SDK_ROOT=~/Library/Android/sdk
+  export ANDROID_AVD_HOME=~/.android/avd
+fi
+
+# On linux
+if [ -d ~/Android/Sdk ]; then
+  export ANDROID_HOME=~/Android/Sdk
+  export ANDROID_SDK_ROOT=~/Android/Sdk
+  export ANDROID_AVD_HOME=~/.android/avd
+fi
+
+# }}}
+# kind completion {{{
+if command -v kind &>/dev/null; then
+  eval "$(kind completion zsh)"
+fi
+# }}}
+# Difftastic in git {{{
+if command -v difft &>/dev/null; then
+  export GIT_EXTERNAL_DIFF=difft
+fi
+# }}}

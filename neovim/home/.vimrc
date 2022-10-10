@@ -147,6 +147,7 @@ colorscheme gruvbox " nice theme
 nnoremap <leader>c :nohlsearch<cr>
 nnoremap <leader>s :Ag<cr>
 nnoremap <leader>o :Files<cr>
+nnoremap <silent> <leader><enter> :Buffers<cr>
 nnoremap <tab> :bnext<cr>
 nnoremap <s-tab> :bprevious<cr>
 nnoremap <c-w> :BD<cr>
@@ -183,7 +184,6 @@ let g:fzf_buffers_jump = 1
 let g:fzf_commits_log_options = '--graph --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr"'
 let g:fzf_tags_command = 'ctags -R'
 let g:fzf_commands_expext = 'alt-enter,ctrl-x'
-nnoremap <silent> <leader><enter> :Buffers<cr>
 " }}}
 " NERDTree {{{
 
