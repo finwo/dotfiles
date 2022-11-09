@@ -76,6 +76,9 @@ command -v vi   &>/dev/null && export EDITOR=vi
 command -v vim  &>/dev/null && export EDITOR=vim
 command -v nvim &>/dev/null && export EDITOR=nvim
 
+# Git shorthands
+alias gc="git commit --no-verify"
+
 # }}}
 # Auto-correct {{{
 
