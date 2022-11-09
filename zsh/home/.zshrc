@@ -231,6 +231,10 @@ fi
 
 # Load on-demand
 nvm() {
+  if [ ! -d "$HOME/.nvm" ]; then
+    echo 'Installing NVM...'
+    curl -o- "https://raw.githubusercontent.com/nvm-sh/nvm/$(version nvm-sh/nvm)/install.sh" | bash
+  fi
   echo 'Loading NVM...'
   unset -f nvm
   export NVM_DIR="$HOME/.nvm"
