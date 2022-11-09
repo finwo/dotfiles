@@ -320,11 +320,6 @@ if [ -d ~/Android/Sdk ]; then
 fi
 
 # }}}
-# kind completion {{{
-if command -v kind &>/dev/null; then
-  eval "$(kind completion zsh)"
-fi
-# }}}
 # Difftastic in git {{{
 if command -v difft &>/dev/null; then
   export GIT_EXTERNAL_DIFF=difft
