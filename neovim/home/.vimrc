@@ -205,8 +205,8 @@ let g:ale_sign_column_always = 1
 
 " What programs handle what
 let g:ale_fixers = {}
-let g:ale_fixers['javascript'] = ['eslint', 'prettier']
-let g:ale_fixers['typescript'] = ['eslint', 'prettier']
+let g:ale_fixers['javascript'] = ['eslint']
+let g:ale_fixers['typescript'] = ['eslint']
 let g:ale_fixers['vue']        = ['eslint']
 let g:ale_fixers['scss']       = ['stylelint']
 
@@ -310,6 +310,8 @@ let g:deoplete#sources#ternjs#in_literal = 0
 
 "Add extra filetypes
 let g:deoplete#sources#ternjs#filetypes = [
+                \ 'tsx',
+                \ 'tavascript.tsx',
                 \ 'jsx',
                 \ 'javascript.jsx',
                 \ 'vue',
