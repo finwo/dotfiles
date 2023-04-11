@@ -21,7 +21,6 @@ call plug#begin('~/.vim/plugged')
 
 Plug 'airblade/vim-gitgutter'
 Plug 'alvan/vim-closetag'
-Plug 'editorconfig/editorconfig-vim'
 Plug 'itchyny/calendar.vim'
 Plug 'jparise/vim-graphql'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -65,12 +64,14 @@ set nocompatible           " be iMproved, required
 filetype off               " required
 let mapleader = "\<space>" " leader is space
 
+
 set smarttab       " Smarter tabs
 set tabstop=2      " Tabs = 2 columns
-set shiftwidth=2   " 
-set shiftround     " 
+set shiftwidth=0   "
+set shiftround     "
 set expandtab      " soft tabs
 set encoding=utf-8 " enable unicode support
+let g:editorconfig = 1
 
 set scrolloff=8      " keep 8 lines above/below cursor
 set sidescroll=1     " enable horizontal scoll
