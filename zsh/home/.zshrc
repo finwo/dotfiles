@@ -339,20 +339,26 @@ fi
 export PNPM_HOME="/home/finwo/.local/share/pnpm"
 export PATH="$PNPM_HOME:$PATH"
 # }}}
-# Android Studio {{{
+# Android development {{{
 
-# On a mac
+# Android-studio on a mac
 if [ -d ~/Library/Android/sdk ]; then
   export ANDROID_HOME=~/Library/Android/sdk
   export ANDROID_SDK_ROOT=~/Library/Android/sdk
   export ANDROID_AVD_HOME=~/.android/avd
 fi
 
-# On linux
+# Android-studio on linux
 if [ -d ~/Android/Sdk ]; then
   export ANDROID_HOME=~/Android/Sdk
   export ANDROID_SDK_ROOT=~/Android/Sdk
   export ANDROID_AVD_HOME=~/.android/avd
+fi
+
+# Android-sdk on linux
+if [ -d ~/android-sdk ]; then
+  export ANDROID_HOME=~/android-sdk
+  export ANDROID_SDK_ROOT=~/android-sdk
 fi
 
 # }}}
@@ -360,4 +366,20 @@ fi
 if command -v difft &>/dev/null; then
   export GIT_EXTERNAL_DIFF=difft
 fi
+# }}}
+# Deno {{{
+export DENO_INSTALL="$HOME/.deno"
+export PATH="$DENO_INSTALL/bin:$PATH"
+# }}}
+# KubeCTL {{{
+
+[[ $commands[kubectl] ]] && source <(kubectl completion zsh) || echo -n
+
+# }}}
+# Oracle Cloud Interface {{{
+
+if [[ -e "${HOME}/.local/lib/oracle-cli/lib/python3.11/site-packages/oci_cli/bin/oci_autocomplete.sh" ]]; then
+  source "${HOME}/.local/lib/oracle-cli/lib/python3.11/site-packages/oci_cli/bin/oci_autocomplete.sh"
+fi
+
 # }}}
