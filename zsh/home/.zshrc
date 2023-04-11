@@ -33,6 +33,37 @@ bindkey -v
 [[ -n "${key[PageUp]}"   ]] && bindkey "${key[PageUp]}"   history-beginning-search-backward
 [[ -n "${key[PageDown]}" ]] && bindkey "${key[PageDown]}" history-beginning-search-forward
 
+
+# Keep secrets out of there
+# Source: https://github.com/jgogstad/passwordless-history
+HISTORY_EXCLUDE_PATTERN='^ |//([^/]+:[^/]+)@|KEY[=:] *([^ ]+)|TOKEN[=:] *([^ ]+)|BEARER[=:] *([^ ]+)|PASSWO?R?D?[=:] *([^ ]+)|Authorization[=:] *([^'"'"'\"]+)|-us?e?r? ([^:]+:[^:]+) '
+
+# See
+# - https://zsh.sourceforge.io/Doc/Release/Functions.html for docs on zshaddhistory
+# - https://zsh.sourceforge.io/Doc/Release/Shell-Builtin-Commands.html for docs on print
+function zshaddhistory() {
+  emulate -L zsh
+  unsetopt case_match
+
+  input="${1%%$'\n'}"
+  if ! [[ "$input" =~ "$HISTORY_EXCLUDE_PATTERN" ]]; then
+    print -Sr -- "$input"
+  else
+    nonempty=($match)
+
+    if [[ $#nonempty -gt 0 ]]; then
+      for m in "$nonempty[@]"; do
+        n="${m##[\"\']}"
+        input="${input/${n%%[\"\']}/...}"
+      done
+
+      print -Sr -- "$input"
+    fi
+    unset match
+    return 1
+  fi
+}
+
 # }}}
 # Custom commands {{{
 
@@ -44,7 +75,7 @@ function version() {
 }
 
 # }}}
-# Local binaries {{{
+# User .local bin path {{{
 if [ -d "${HOME}/.local/bin" ]; then
   export PATH="${HOME}/.local/bin:${PATH}"
 fi
