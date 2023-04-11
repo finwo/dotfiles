@@ -275,6 +275,11 @@ nvm() {
 }
 #
 # }}}
+# PHPBrew {{{
+
+[[ -e ~/.phpbrew/bashrc ]] && source ~/.phpbrew/bashrc
+
+# }}}
 # qemu-create {{{
 function qemu-create () {
 
