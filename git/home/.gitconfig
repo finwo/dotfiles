@@ -1,6 +1,6 @@
 [user]
-  email = robin@finwo.nl
-  name = Robin Bron
+  email = yersa@finwo.nl
+  name = Yersa Nordman
 [push]
   followTags = true
 [credential]
@@ -12,3 +12,4 @@
   rebase = false
 [core]
   ignorecase = false
+  filemode = true
