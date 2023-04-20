@@ -185,12 +185,6 @@ PROMPT_COMMAND=
 # }}}
 # Google Cloud SDK {{{
 
-# Gcloud sdk doesn't support python 3.10 yet
-# Using python2 as compatibility layer
-if [ -d '/home/finwo/google-cloud-sdk' ] || [ -d '/home/finwo/Downloads/google-cloud-sdk' ]; then
-  export CLOUDSDK_PYTHON=$(which python2)
-fi
-
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/home/finwo/google-cloud-sdk/path.zsh.inc' ]; then
   . '/home/finwo/google-cloud-sdk/path.zsh.inc'
