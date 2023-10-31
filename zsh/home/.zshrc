@@ -19,6 +19,11 @@ if [ -d "/opt/homebrew/opt/openjdk@11/bin" ]; then
   export PATH="/opt/homebrew/opt/openjdk@11/bin:$PATH"
 fi
 
+# Homebrew on M1 mac
+if [ -d "/opt/homebrew/bin" ]; then
+  export PATH="/opt/homebrew/bin:$PATH"
+fi
+
 # }}}
 # History {{{
 
