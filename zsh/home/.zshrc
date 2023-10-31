@@ -358,6 +358,14 @@ if [ -d ~/android-sdk ]; then
   export ANDROID_SDK_ROOT=~/android-sdk
 fi
 
+# Link to platform tools & emulator for android
+if [ -d ${ANDROID_HOME}/platform-tools ]; then
+  export PATH="$PATH:$ANDROID_HOME/platform-tools"
+fi
+if [ -d ${ANDROID_HOME}/emulator ]; then
+  export PATH="$PATH:$ANDROID_HOME/emulator"
+fi
+
 # }}}
 # Difftastic in git {{{
 if command -v difft &>/dev/null; then
