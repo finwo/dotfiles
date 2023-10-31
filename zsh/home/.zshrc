@@ -388,3 +388,9 @@ if [[ -e "${HOME}/.local/lib/oracle-cli/lib/python3.11/site-packages/oci_cli/bin
 fi
 
 # }}}
+# OPAM bin support {{{
+
+# opam configuration
+[[ ! -r /home/finwo/.opam/opam-init/init.zsh ]] || source /home/finwo/.opam/opam-init/init.zsh  > /dev/null 2> /dev/null
+
+# }}}
