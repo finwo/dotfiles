@@ -95,10 +95,13 @@ fi
 # }}}
 # OSX coreutil fixes {{{
 
-command -v gcp &>/dev/null && alias cp="gcp"
-command -v gls &>/dev/null && alias ls="gls"
-command -v gmv &>/dev/null && alias mv="gmv"
-command -v grm &>/dev/null && alias rm="grm"
+command -v gcp   &>/dev/null && alias cp="gcp"
+command -v gls   &>/dev/null && alias ls="gls"
+command -v gmv   &>/dev/null && alias mv="gmv"
+command -v grm   &>/dev/null && alias rm="grm"
+command -v gmake &>/dev/null && alias make="gmake"
+
+command -v nproc &>/dev/null || alias nproc="sysctl -n hw.ncpu"
 
 # }}}
 # Aliases {{{
