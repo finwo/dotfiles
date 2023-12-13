@@ -1,6 +1,14 @@
 # vim:fdm=marker:fdl=0
 # set -ex
 
+# Path /usr/local fix {{{
+if ! echo $PATH | tr ':' '\n' | grep -q '/usr/local/bin/' ; then
+  export PATH="/usr/local/bin:$PATH"
+fi
+if ! echo $PATH | tr ':' '\n' | grep -q '/usr/local/sbin/' ; then
+  export PATH="/usr/local/sbin:$PATH"
+fi
+# }}}
 # Homebrew {{{
 
 # Linuxbrew
