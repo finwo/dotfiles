@@ -28,8 +28,8 @@ if [ -d "/opt/homebrew/opt/openjdk@11/bin" ]; then
 fi
 
 # Homebrew on M1 mac
-if [ -d "/opt/homebrew/bin" ]; then
-  export PATH="/opt/homebrew/bin:$PATH"
+if [ -x "/opt/homebrew/bin/brew" ]; then
+  eval "$(/opt/homebrew/bin/brew shellenv)"
 fi
 
 # }}}
