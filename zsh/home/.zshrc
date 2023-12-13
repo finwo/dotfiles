@@ -110,6 +110,9 @@ command -v nproc &>/dev/null || alias nproc="sysctl -n hw.ncpu"
 command -v "nvim" &>/dev/null && alias vim="nvim"
 command -v "vim"  &>/dev/null && alias vi="vim"
 
+# vim-like quit
+alias :q="exit"
+
 # LS
 alias ls="ls --color=always"
 alias ll="ls -lsa"
