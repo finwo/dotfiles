@@ -1,14 +1,37 @@
 [user]
   email = yersa@finwo.nl
   name = Yersa Nordman
+
+[interactive]
+  diffFilter = delta --color-only
+  singleKey = true
+
+[delta]
+  navigate = true
+  light = false
+  side-by-side = true
+  line-numbers = true
+
+[merge]
+  conflictstyle = diff3
+
+[diff]
+  colorMoved = default
+
 [push]
   followTags = true
+
 [credential]
   helper = store
+
 [pull]
   rebase = false
+
 [init]
-  defaultBranch = master
+  defaultBranch = main
+  rebase = false
+
 [core]
   ignorecase = false
   filemode = true
+  pager = delta
