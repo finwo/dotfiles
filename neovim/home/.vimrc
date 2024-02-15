@@ -38,6 +38,7 @@ Plug 'tpope/vim-eunuch'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 " Plug 'w0rp/ale'
+Plug 'sQVe/sort.nvim'
 
 Plug 'neoclide/coc.nvim', {'branch': 'master', 'do': 'npm ci'}
 Plug 'neoclide/coc.nvim', {'branch': 'master', 'do': 'npm ci'}
@@ -512,4 +513,8 @@ nmap ga <Plug>(EasyAlign)
 " }}}
 " Syntax detection {{{
 au BufNewFile,BufRead,BufReadPost *.hbs set syntax=handlebars
+" }}}
+" Sort config {{{
+nnoremap <silent> go <Cmd>Sort<CR>
+vnoremap <silent> go <Esc><Cmd>Sort<CR>
 " }}}
