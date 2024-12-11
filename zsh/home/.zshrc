@@ -22,8 +22,10 @@ if [ -d /home/linuxbrew/.linuxbrew ]; then
   export INFOPATH="/home/linuxbrew/.linuxbrew/share/info${INFOPATH+:$INFOPATH}";
 fi
 
-# openjdk 11 on osx
-if [ -d "/opt/homebrew/opt/openjdk@11/bin" ]; then
+# openjdk on osx
+if [ -d "/opt/homebrew/opt/openjdk@17/bin" ]; then
+  export PATH="/opt/homebrew/opt/openjdk@17/bin:$PATH"
+elif [ -d "/opt/homebrew/opt/openjdk@11/bin" ]; then
   export PATH="/opt/homebrew/opt/openjdk@11/bin:$PATH"
 fi
 
