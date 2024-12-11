@@ -32,6 +32,15 @@ fi
 # Homebrew on M1 mac
 if [ -x "/opt/homebrew/bin/brew" ]; then
   eval "$(/opt/homebrew/bin/brew shellenv)"
+  export HOMEBREW_NO_AUTO_UPDATE=1
+fi
+
+# Brew-installed libs
+if [ -d "/opt/homebrew/lib" ]; then
+  export LIBRARY_PATH="$LIBRARY_PATH:/opt/homebrew/lib"
+fi
+if [ -d "/opt/homebrew/opt/libiconv/lib" ]; then
+  export LIBRARY_PATH="$LIBRARY_PATH:/opt/homebrew/opt/libiconv/lib"
 fi
 
 # }}}
