@@ -139,6 +139,11 @@ if has('mouse')
   set mouse=a
 endif
 
+" in makefiles, don't expand tabs to spaces, since actual tab characters are
+" needed, and have indentation at 8 chars to be sure that all indents are tabs
+" (despite the mappings later):
+autocmd FileType make set noexpandtab shiftwidth=2 softtabstop=0
+
 " }}}
 " Colors {{{
 
@@ -201,23 +206,23 @@ let g:NERDTreePatternMatchHighlightFullName = 1
 
 " " Don't restrict JSX syntax highlighting to .jsx files
 " let g:jsx_ext_required = 0
-" 
+"
 " " Enable completion where available
 " let g:ale_sign_error = '✘'
 " let g:ale_sign_warning = '•'
 " let g:ale_sign_column_always = 1
-" 
+"
 " " What programs handle what
 " let g:ale_fixers = {}
 " let g:ale_fixers['javascript'] = ['eslint']
 " let g:ale_fixers['typescript'] = ['eslint']
 " let g:ale_fixers['vue']        = ['eslint']
 " let g:ale_fixers['scss']       = ['stylelint']
-" 
+"
 " " Automagically fix
 " let g:ale_open_list= 0
 " let g:ale_fix_on_save = 1
-" 
+"
 " " Don't run every keystroke
 " let g:ale_lint_on_insert_leave = 1
 " let g:ale_lint_on_text_changed = 'never'
@@ -235,6 +240,7 @@ let g:coc_global_extensions = [
       \ 'coc-html',
       \ 'coc-json',
       \ 'coc-sh',
+      \ 'coc-tsserver',
       \ 'coc-vetur',
       \ 'coc-yaml'
       \ ]
@@ -440,8 +446,8 @@ set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 "" Whether to include the types of the completions in the result data. Default: 0
 "let g:deoplete#sources#ternjs#types = 1
 
-"" Whether to include the distance (in scopes for variables, in prototypes for 
-"" properties) between the completions and the origin position in the result 
+"" Whether to include the distance (in scopes for variables, in prototypes for
+"" properties) between the completions and the origin position in the result
 "" data. Default: 0
 "let g:deoplete#sources#ternjs#depths = 1
 
@@ -450,32 +456,32 @@ set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 "let g:deoplete#sources#ternjs#docs = 1
 
 "" When on, only completions that match the current word at the given point will
-"" be returned. Turn this off to get all results, so that you can filter on the 
+"" be returned. Turn this off to get all results, so that you can filter on the
 "" client side. Default: 1
 "let g:deoplete#sources#ternjs#filter = 0
 
-"" Whether to use a case-insensitive compare between the current word and 
+"" Whether to use a case-insensitive compare between the current word and
 "" potential completions. Default 0
 "let g:deoplete#sources#ternjs#case_insensitive = 1
 
-"" When completing a property and no completions are found, Tern will use some 
-"" heuristics to try and return some properties anyway. Set this to 0 to 
+"" When completing a property and no completions are found, Tern will use some
+"" heuristics to try and return some properties anyway. Set this to 0 to
 "" turn that off. Default: 1
 "let g:deoplete#sources#ternjs#guess = 0
 
 "" Determines whether the result set will be sorted. Default: 1
 "let g:deoplete#sources#ternjs#sort = 1
 
-"" When disabled, only the text before the given position is considered part of 
+"" When disabled, only the text before the given position is considered part of
 "" the word. When enabled (the default), the whole variable name that the cursor
 "" is on will be included. Default: 1
 "let g:deoplete#sources#ternjs#expand_word_forward = 0
 
-"" Whether to ignore the properties of Object.prototype unless they have been 
+"" Whether to ignore the properties of Object.prototype unless they have been
 "" spelled out by at least two characters. Default: 1
 "let g:deoplete#sources#ternjs#omit_object_prototype = 0
 
-"" Whether to include JavaScript keywords when completing something that is not 
+"" Whether to include JavaScript keywords when completing something that is not
 "" a property. Default: 0
 "let g:deoplete#sources#ternjs#include_keywords = 1
 

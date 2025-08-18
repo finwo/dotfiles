@@ -114,6 +114,8 @@ command -v gmake &>/dev/null && alias make="gmake"
 
 command -v nproc &>/dev/null || alias nproc="sysctl -n hw.ncpu"
 
+command -v kitten &>/dev/null && alias icat="kitten icat"
+
 # }}}
 # Aliases {{{
 
@@ -182,6 +184,11 @@ fi
 if [[ $TERM == screen* ]]; then
   export TERM=${TERM#screen.}
   export SCREEN=yes
+fi
+
+# Fix for kitty term
+if [[ $TERM == "xterm-kitty" ]]; then
+  export TERM=xterm-color
 fi
 
 # # TERM
@@ -300,7 +307,44 @@ nvm() {
   [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
   nvm "$@"
 }
-#
+
+_load_nvm() {
+  unset -f node
+  unset -f npx
+  unset -f npm
+  nvm use default
+}
+
+node() {
+  _load_nvm
+  node "$@"
+}
+
+npm() {
+  _load_nvm
+  npm "$@"
+}
+
+npx() {
+  _load_nvm
+  npx "$@"
+}
+
+# if [ -d "$HOME/.nvm" ]; then
+#   nvm use default
+# fi
+
+# }}}
+# Load nvm pre-neovim {{{
+
+[ -d "$HOME/.nvm" ] && command -v nvim &>/dev/null && {
+  nvim() {
+    _load_nvm
+    unset -f nvim
+    nvim "$@"
+  }
+}
+
 # }}}
 # PHPBrew {{{
 
@@ -358,8 +402,8 @@ EOF
 }
 # }}}
 # nativescript {{{
-if [ -f /home/finwo/.tnsrc ]; then 
-    source /home/finwo/.tnsrc 
+if [ -f /home/finwo/.tnsrc ]; then
+    source /home/finwo/.tnsrc
 fi
 # }}}
 # pnpm {{{
@@ -402,9 +446,15 @@ if command -v difft &>/dev/null; then
   export GIT_EXTERNAL_DIFF=difft
 fi
 # }}}
-# Deno {{{
-export DENO_INSTALL="$HOME/.deno"
-export PATH="$DENO_INSTALL/bin:$PATH"
+# osx clang {{{
+if [ -d /opt/homebrew/opt/llvm/bin ]; then
+  export PATH="/opt/homebrew/opt/llvm/bin:${PATH}"
+fi
+# }}}
+# Rust cargo {{{
+if [ -f $HOME/.cargo/env ]; then
+  . $HOME/.cargo/env
+fi
 # }}}
 # KubeCTL {{{
 
