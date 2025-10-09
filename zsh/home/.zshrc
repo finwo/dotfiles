@@ -294,45 +294,13 @@ fi
 # }}}
 # Node Version Manager {{{
 
-# Load on-demand
-nvm() {
-  if [ ! -d "$HOME/.nvm" ]; then
-    echo 'Installing NVM...'
-    curl -o- "https://raw.githubusercontent.com/nvm-sh/nvm/$(version nvm-sh/nvm)/install.sh" | bash
-  fi
-  echo 'Loading NVM...'
-  unset -f nvm
-  export NVM_DIR="$HOME/.nvm"
-  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-  [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-  nvm "$@"
-}
+if [ ! -f "${HOME}/.nvm/nvm.sh" ]; then
+  curl -o- "https://raw.githubusercontent.com/nvm-sh/nvm/$(version nvm-sh/nvm)/install.sh" | bash
+fi
 
-_load_nvm() {
-  unset -f node
-  unset -f npx
-  unset -f npm
-  nvm use default
-}
-
-node() {
-  _load_nvm
-  node "$@"
-}
-
-npm() {
-  _load_nvm
-  npm "$@"
-}
-
-npx() {
-  _load_nvm
-  npx "$@"
-}
-
-# if [ -d "$HOME/.nvm" ]; then
-#   nvm use default
-# fi
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 # }}}
 # Load nvm pre-neovim {{{
