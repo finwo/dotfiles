@@ -303,17 +303,6 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 # }}}
-# Load nvm pre-neovim {{{
-
-[ -d "$HOME/.nvm" ] && command -v nvim &>/dev/null && {
-  nvim() {
-    _load_nvm
-    unset -f nvim
-    nvim "$@"
-  }
-}
-
-# }}}
 # PHPBrew {{{
 
 [[ -e ~/.phpbrew/bashrc ]] && source ~/.phpbrew/bashrc
